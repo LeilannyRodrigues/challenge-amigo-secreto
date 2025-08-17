@@ -1,23 +1,20 @@
 // Mantemos uma lista global para armazenar os nomes dos amigos.
-let amigos = [];
+ let amigos = [];
 // Adicionamos uma variável para controlar o estado do sorteio.
-let sorteioRealizado = false;
+ let sorteioRealizado = false;
 
 // Função para adicionar um novo amigo.
-// O nome da função foi corrigido para "adicionarAmigo" para corresponder ao onclick no HTML.
-function adicionarAmigo() {
-    // Selecionamos o campo de input e o parágrafo onde a lista de amigos será exibida.
-    // Os IDs foram corrigidos para "amigo" e "listaAmigos" para corresponder ao HTML.
-    let nomeInput = document.getElementById('amigo');
-    let listaDeAmigosElemento = document.getElementById('listaAmigos');
+ function adicionarAmigo() {
+     let nomeInput = document.getElementById('amigo');
+     let listaDeAmigosElemento = document.getElementById('listaAmigos');
     
-    // Pegamos o valor digitado e usamos .trim() para remover espaços em branco no início e fim.
-    let nome = nomeInput.value.trim();
+
+     let nome = nomeInput.value.trim();
 
     // Validação: Verifica se o campo não está vazio.
     if (nome === '') {
-        alert('Por favor, digite o nome do amigo.');
-        return; // Encerra a função se o nome for inválido.
+        alert('Por favor, insira um nome válido.');
+        return; // Encerra a função se for inválido.
     }
 
     // Validação: Verifica se o nome já foi adicionado (ignorando maiúsculas/minúsculas).
@@ -32,12 +29,17 @@ function adicionarAmigo() {
     amigos.push(nome);
 
 
-    // Atualiza a exibição na tela, criando um item de lista <li> para cada amigo.
-    // Isso garante que a lista <ul> seja usada corretamente.
-    listaDeAmigosElemento.innerHTML = amigos.map(amigo => `<li>${amigo}</li>`).join('');
+    // Atualiza a exibição na tela com um laço 'for'.
+    // 1. Cria uma string vazia para armazenar o HTML.
+    let listaHtml = '';
+    // 2. Percorre cada amigo na lista e adiciona um <li> à string.
+    for (let amigo of amigos) {
+        listaHtml += `<li>${amigo}</li>`;
+    }
+    // 3. Atualiza o HTML da página de uma só vez com a string completa.
+    listaDeAmigosElemento.innerHTML = listaHtml;
 
     // Limpa o campo de input e coloca o foco nele novamente.
-    // Isso melhora a experiência do usuário, permitindo adicionar vários nomes rapidamente.
     nomeInput.value = '';
     nomeInput.focus();
 }
@@ -56,7 +58,7 @@ function sortearAmigo() {
  
     // Exibe o único nome sorteado no elemento 'resultado'.
     const resultadoElemento = document.getElementById('resultado');
-    resultadoElemento.innerHTML = `<p class="result-list">O nome sorteado é: ${nomeSorteado}</p>`;
+    resultadoElemento.innerHTML = `<p class="result-list">O amigo secreto sorteado é: ${nomeSorteado}</p>`;
 
     // Marca que o sorteio foi realizado.
     sorteioRealizado = true;
@@ -76,4 +78,4 @@ document.getElementById('amigo').addEventListener('focus', () => {
     if (sorteioRealizado) {
         reiniciar();
     }
-});
+}); 
