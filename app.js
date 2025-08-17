@@ -28,16 +28,11 @@
     // Adiciona o nome à nossa lista (array 'amigos').
     amigos.push(nome);
 
-
-    // Atualiza a exibição na tela com um laço 'for'.
-    // 1. Cria uma string vazia para armazenar o HTML.
-    let listaHtml = '';
-    // 2. Percorre cada amigo na lista e adiciona um <li> à string.
-    for (let amigo of amigos) {
-        listaHtml += `<li>${amigo}</li>`;
-    }
-    // 3. Atualiza o HTML da página de uma só vez com a string completa.
-    listaDeAmigosElemento.innerHTML = listaHtml;
+    // Atualiza a exibição na tela de forma mais eficiente.
+    // Em vez de recriar toda a lista, apenas adicionamos o novo amigo.
+    const novoAmigoElemento = document.createElement('li');
+    novoAmigoElemento.textContent = nome;
+    listaDeAmigosElemento.appendChild(novoAmigoElemento);
 
     // Limpa o campo de input e coloca o foco nele novamente.
     nomeInput.value = '';
@@ -67,7 +62,10 @@ function sortearAmigo() {
 // Função para reiniciar o jogo.
 function reiniciar() {
     amigos = [];
-    document.getElementById('listaAmigos').innerHTML = '';
+    // Ao reiniciar, limpamos a lista de amigos na tela.
+    const listaDeAmigosElemento = document.getElementById('listaAmigos');
+    listaDeAmigosElemento.innerHTML = '';
+
     document.getElementById('resultado').innerHTML = '';
     sorteioRealizado = false; // Reseta o estado do sorteio.
 }
